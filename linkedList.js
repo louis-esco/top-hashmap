@@ -1,24 +1,24 @@
-import Node from "./node";
+import Node from "./node.js";
 
 export default class LinkedList {
   constructor(head = null) {
     this.head = head;
   }
 
-  append(value) {
+  append(key, value) {
     if (this.head === null) {
-      this.head = new Node(value);
+      this.head = new Node(key, value);
     } else {
       let lastNode = this.head;
       while (lastNode.nextNode !== null) {
         lastNode = lastNode.nextNode;
       }
-      lastNode.nextNode = new Node(value);
+      lastNode.nextNode = new Node(key, value);
     }
   }
 
-  prepend(value) {
-    this.head = new Node(value, this.head);
+  prepend(key, value) {
+    this.head = new Node(key, value, this.head);
   }
 
   getSize() {
@@ -69,10 +69,10 @@ export default class LinkedList {
     }
   }
 
-  contains(value) {
+  contains(key) {
     let nodeSearch = this.head;
     while (nodeSearch !== null) {
-      if (nodeSearch.value.includes(value)) {
+      if (nodeSearch.key === key) {
         return true;
       } else {
         nodeSearch = nodeSearch.nextNode;
@@ -81,11 +81,11 @@ export default class LinkedList {
     return false;
   }
 
-  find(value) {
+  find(key) {
     let nodeSearch = this.head;
     let index = 0;
     while (nodeSearch !== null) {
-      if (nodeSearch.value.includes(value)) {
+      if (nodeSearch.key === key) {
         return index;
       } else {
         nodeSearch = nodeSearch.nextNode;
@@ -95,26 +95,36 @@ export default class LinkedList {
     return null;
   }
 
-  toString() {
+  toArray(input) {
     let node = this.head;
-    let printList = "";
+    let listArr = [];
     while (node !== null) {
-      printList += `( ${node.value} ) -> `;
+      listArr.push(node[input]);
       node = node.nextNode;
     }
-    printList += "null";
-    console.log(printList);
+    return listArr;
   }
 
-  insertAt(value, index) {
+  toPairedArray() {
+    let node = this.head;
+    let listArr = [];
+    while (node !== null) {
+      const pairArray = [node.key, node.value];
+      listArr.push(pairArray);
+      node = node.nextNode;
+    }
+    return listArr;
+  }
+
+  insertAt(key, value, index) {
     if (index === 0) {
-      this.head = new Node(value, this.head);
+      this.head = new Node(key, value, this.head);
     } else {
       let node = this.head;
       for (let i = 0; i < index - 1; i++) {
         node = node.nextNode;
       }
-      node.nextNode = new Node(value, node.nextNode);
+      node.nextNode = new Node(key, value, node.nextNode);
     }
   }
 
