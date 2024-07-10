@@ -1,0 +1,1 @@
+(()=>{"use strict";const h=new class{constructor(){this.hashTable=new Array(16)}hash(h){let t=0;for(let s=0;s<h.length;s++)t=(31*t+h.charCodeAt(s))%this.hashTable.length;return t}};window.hash=h})();
